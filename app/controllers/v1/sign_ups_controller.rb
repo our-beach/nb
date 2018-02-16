@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sign_up_service'
-
 class V1::SignUpsController < ApplicationController
   before_action :validate_auth_code
 
