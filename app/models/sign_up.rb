@@ -1,6 +1,7 @@
 class SignUp < ApplicationRecord
-  attr_accessor :number
-  validates :number,
-    presence: true,
-    format: { with: /\A\d+\z/, message: "Invalid phone number" }
+  attr_readonly :encrypted_phone_number
+  attr_readonly :auth_code
+
+  validates :encrypted_phone_number, presence: true
+  validates :auth_code, presence: true
 end

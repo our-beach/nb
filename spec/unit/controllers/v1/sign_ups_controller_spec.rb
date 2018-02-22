@@ -25,11 +25,5 @@ RSpec.describe V1::SignUpsController, type: :controller do
         expect(JSON.parse(response.body)['message']).to eq("Invalid phone number")
       end
     end
-
-    context 'When the phone number cannot be processed' do
-      it 'returns status code 500' do
-        expect(response).to have_http_status(500)
-      end
-    end
   end
 end
