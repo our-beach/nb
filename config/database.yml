@@ -1,5 +1,4 @@
 default: &default
-  db_id: test
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
