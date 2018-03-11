@@ -1,0 +1,2 @@
+class AuthCode < ApplicationRecord
+end

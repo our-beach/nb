@@ -18,7 +18,7 @@ RSpec.describe SignUpService do
       let(:id) {'9a0fkj2'}
 
       before do
-        expect(ConfirmationCodeService).to receive(:create).
+        expect(ConfirmationCodeService).to receive(:create!).
           and_return(confirmation_code)
 
         expect(SignUp).to receive(:create).

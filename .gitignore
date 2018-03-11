@@ -10,6 +10,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+logfile
+*.log
 
 .byebug_history
 
@@ -17,3 +19,4 @@
 /config/application.yml
 .ruby-gemset
 .ruby-version
+
