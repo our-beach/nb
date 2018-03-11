@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210234002) do
+ActiveRecord::Schema.define(version: 20180311205815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "sign_ups", force: :cascade do |t|
     t.string "encrypted_phone_number"
-    t.string "auth_code"
+    t.string "confirmation_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["encrypted_phone_number"], name: "index_sign_ups_on_encrypted_phone_number"

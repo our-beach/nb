@@ -14,19 +14,22 @@ RSpec.describe SignUpService do
 
     context 'when the provided phone number is valid' do
       let(:phone_number) { '15555555555' }
-      before do 
+      let(:confirmation_code) { 'abc' }
+      let(:id) {'9a0fkj2'}
+
+      before do
         expect(ConfirmationCodeService).to receive(:create).
           and_return(confirmation_code)
-        expect(ConfirmationMessageJob).to receive(:perform_later).
-          with(phone_number, confirmation_code)
+
         expect(SignUp).to receive(:create).
-          with(phone_number: phone_number, confirmation_code: confirmation_code).
-          and_call_original
+          with(encrypted_phone_number: phone_number, confirmation_code: confirmation_code).
+          and_return instance_double(SignUp, id: id)
+
+        expect(ConfirmationMessageJob).to receive(:perform_later).
+          with(id)
       end
 
       it { is_expected.to be_truthy }
-     
-
     end
   end
 end

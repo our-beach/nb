@@ -5,8 +5,11 @@ module SignUpService
 
   def self.create!(phone_number)
     raise InvalidPhoneNumber unless PhoneValidator.valid? phone_number
-    SignUp.create(phone_number: phone_number,
-                  confirmation_code: ConfirmationCodeService.create)
+    sign_up = SignUp.create(
+      encrypted_phone_number: phone_number,
+      confirmation_code: ConfirmationCodeService.create
+    )
+    ConfirmationMessageJob.perform_later sign_up.id
     true
   end
 end
