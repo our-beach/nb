@@ -15,7 +15,7 @@ RSpec.describe SignUpService do
     context 'when the provided phone number is valid' do
       let(:phone_number) { '15555555555' }
       before do 
-        expect(ConfirmationCodeService).to receive(:create!).
+        expect(ConfirmationCodeService).to receive(:create).
           and_return(confirmation_code)
         expect(ConfirmationMessageJob).to receive(:perform_later).
           with(phone_number, confirmation_code)
