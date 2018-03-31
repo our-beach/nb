@@ -14,6 +14,10 @@ class V1::SignUpsController < ApplicationController
     render status: 422, json: {message: "Invalid phone number"}
   end
 
+  def update
+    render status: 201, json: {links: { user: "something" } }
+  end
+
   private
 
   def phone_number
