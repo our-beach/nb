@@ -13,6 +13,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro', '~> 1.0'
 gem 'phony'
 gem 'redis'
+gem 'jsonapi-rb'
+gem 'jsonapi-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

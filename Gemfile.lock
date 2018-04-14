@@ -72,6 +72,17 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
+    jsonapi-deserializable (0.2.0)
+    jsonapi-parser (0.1.1)
+    jsonapi-rails (0.3.1)
+      jsonapi-parser (~> 0.1.0)
+      jsonapi-rb (~> 0.5.0)
+    jsonapi-rb (0.5.0)
+      jsonapi-deserializable (~> 0.2.0)
+      jsonapi-serializable (~> 0.3.0)
+    jsonapi-renderer (0.2.0)
+    jsonapi-serializable (0.3.0)
+      jsonapi-renderer (~> 0.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -191,6 +202,8 @@ DEPENDENCIES
   guard
   guard-rails
   guard-rspec
+  jsonapi-rails
+  jsonapi-rb
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
   phony
