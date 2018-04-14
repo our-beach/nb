@@ -6,13 +6,9 @@ RSpec.describe "POST api/v1/users/", type: :request do
 
   let(:phone_number) { '555-555-5555' }
   let(:request_params) do
-    {
-      _jsonapi: {
-        data: {
-          type: 'users',
-          atributes: {phone_number: phone_number }
-        }
-      }
+    api_params data: {
+      type: 'users',
+      atributes: {phone_number: phone_number }
     }
   end
 

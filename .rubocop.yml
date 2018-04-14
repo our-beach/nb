@@ -1,0 +1,8 @@
+AllCops:
+  Exclude:
+    - spec/spec_helper.rb
+    - spec/helpers/**/*
+    - Gemfile
+    - *.gemspec
+    - bin/**/*
+    - Guardfile
