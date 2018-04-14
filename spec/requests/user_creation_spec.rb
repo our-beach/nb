@@ -13,7 +13,7 @@ RSpec.describe "POST api/v1/users/", type: :request do
   end
 
   it "creates a new user" do
-    post "/api/v1/users/create", params: request_params
+    post '/api/v1/users', params: request_params
 
     expect(response.content_type).to eq('application/vnd.api+json')
     expect(response).to have_http_status(:created)

@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe V1::UsersController, type: :controller do
   describe '#create' do
     subject do
-      post :create, params: {
+      post :create, params: api_params(
         data: {
           type: 'users',
           attributes: { phone_number: phone_number }
         }
-      }
+      )
     end
 
     let(:phone_number) { '555-555-5555' }
@@ -22,22 +22,18 @@ RSpec.describe V1::UsersController, type: :controller do
     end
 
     it { is_expected.to have_http_status :created }
+
     it 'should include a representation of the user record' do
       representation = JSON.parse subject.body
       expect(representation).to include 'data' => {
-        'id' => user.id,
-        'type' => 'users' ,
-        'attributes' => { 'phone_number' => phone_number },
-        'links' => { 'self' => "/api/v1/users/#{user.id}" }
+        'id' => user.id.to_s,
+        'type' => 'users',
+        'links' => {
+          'self' => "/api/v1/users/#{user.id}",
+          'authorizationRequests' => "/api/v1/users/#{user.id}/authorization-requests",
+          'authorizationTokens' => "/api/v1/users/#{user.id}/authorization-tokens"
+        }
       }
     end
-  end
-
-  describe '#update' do
-    xit 'it only marks a user as confirmed when the confirmation code is valid'
-  end
-
-  describe '#delete' do
-    xit 'it removes a user from the database'
   end
 end

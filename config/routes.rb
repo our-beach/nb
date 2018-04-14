@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   scope :api do
     namespace :v1 do
       scope :users do
-        post '/create' => 'users#create'
+        post '/' => 'users#create'
+        post '/authorization-request' => 'users/authorization_requests#create'
+        post '/authorization-tokens' => 'users/authorization_tokens#create'
       end
 
       scope :sign_ups do
-        post '/create' => 'sign_ups#create'
+        post '/' => 'sign_ups#create'
         patch '/:id' => 'sign_ups#update'
       end
     end

@@ -5,7 +5,6 @@ class V1::UsersController < ApplicationController
   deserializable_resource :user, only: [:create, :update]
 
   def create
-    render jsonapi: user,
-      status: :created
+    render jsonapi: created_user, status: :created
   end
 end
