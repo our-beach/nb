@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :users do
         post ':id/authorization_requests' => 'users/authorization_requests#create'
-        post ':id/authorization-tokens' => 'users/authorization_tokens#create'
+        get ':id/authorization-token' => 'users/authorization_token#show'
       end
     end
   end
