@@ -1,4 +1,4 @@
-class AuthorizationRequest
+class ExchangeRequest
   attr_reader :user, :token
   def initialize user, token
     @user = user

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe AuthorizationRequestValidator do
+RSpec.describe ExchangeRequestValidator do
   describe '.call' do
     subject { described_class.call request }
 
     let(:user) { instance_double User, id: '1' }
     let(:token) { '123456' }
-    let(:request) { AuthorizationRequest.new user, token }
+    let(:request) { ExchangeRequest.new user, token }
 
     context 'when the request matches an existing user/token pair' do
       before do
