@@ -1,0 +1,2 @@
+class TextMessageService < Service
+end

@@ -4,4 +4,8 @@ class EncryptionService
   def self.encrypt string
     BCrypt::Password.create string, cost: COST
   end
+
+  def self.decrypt string
+    BCryptgemf
+  end
 end

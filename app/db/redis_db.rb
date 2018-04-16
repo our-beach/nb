@@ -2,6 +2,8 @@
 
 class RedisDB
   class << self
+    delegate :get, to: :redis
+
     def redis
       @redis ||= Redis.new
     end
