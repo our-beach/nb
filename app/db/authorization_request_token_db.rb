@@ -1,13 +1,21 @@
 class AuthorizationRequestTokenDB
-  TTL = Figaro.env.confirmation_code_ttl.to_i.minutes
+  TTL = Figaro.env.authorization_request_token_ttl_minutes.to_i.minutes
 
-  def self.create user_id
-    token = AuthorizationRequestToken.new
-    RedisDB.insert! user_id, token, ttl: TTL
-    token
-  end
+  class << self
+    def create user_id
+      token = AuthorizationRequestToken.new
+      RedisDB.insert! prefix(user_id), token, ttl: TTL
+      token
+    end
 
-  def self.for_user user_id
-    RedisDB.get user_id
+    def for_user user_id
+      RedisDB.get prefix(user_id)
+    end
+
+    private
+
+    def prefix key
+      "art:#{key}"
+    end
   end
 end
