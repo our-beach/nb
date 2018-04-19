@@ -11,7 +11,7 @@ RSpec.describe V1::UsersController, type: :controller do
       )
     end
 
-    let(:phone_number) { '555-555-5555' }
+    let(:phone_number) { '1-555-555-5555' }
     let(:user) { User.new id: 1, phone_number: phone_number }
     let(:encrypted_phone_number) { 'afhdslacdjsaklfhdkl;a' }
 
@@ -25,7 +25,7 @@ RSpec.describe V1::UsersController, type: :controller do
 
     it 'should include a representation of the user record' do
       representation = JSON.parse subject.body
-      expect(representation).to include 'data' => {
+      expect(representation).to include 'data' => include(
         'id' => user.id.to_s,
         'type' => 'users',
         'links' => {
@@ -33,7 +33,7 @@ RSpec.describe V1::UsersController, type: :controller do
           'authorizationRequests' => "/api/v1/users/#{user.id}/authorization-requests",
           'authorizationTokens' => "/api/v1/users/#{user.id}/authorization-tokens"
         }
-      }
+      )
     end
   end
 end

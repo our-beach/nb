@@ -3,6 +3,8 @@
 class SerializableUser < JSONAPI::Serializable::Resource
   type 'users'
 
+  attributes :phone_number
+
   link(:self) { "/api/v1/users/#{@object.id}" }
   link(:authorizationRequests) { "/api/v1/users/#{@object.id}/authorization-requests" }
   link(:authorizationTokens) { "/api/v1/users/#{@object.id}/authorization-tokens" }
