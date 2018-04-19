@@ -27,6 +27,20 @@ RSpec.describe DataEncryptionKey, type: :model do
     it { is_expected.to have_attributes key: 'abc' }
   end
 
+  describe '#is_primary?' do
+    subject { instance.is_primary? }
+
+    context 'when the key is primary' do
+      let(:instance) { described_class.new key: 'abc', primary: true }
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when the key is not primary' do
+      let(:instance) { described_class.new key: 'abc', primary: false }
+      it { is_expected.to be_falsey }
+    end
+  end
+
   describe '#promote!' do
     subject { @promoted.promote! }
 
