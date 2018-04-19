@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331234101) do
+ActiveRecord::Schema.define(version: 20180419043519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,20 +21,10 @@ ActiveRecord::Schema.define(version: 20180331234101) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sign_ups", force: :cascade do |t|
-    t.string "encrypted_phone_number"
-    t.string "confirmation_code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["encrypted_phone_number"], name: "index_sign_ups_on_encrypted_phone_number"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "confirmation_status", default: "unconfirmed"
-    t.index ["phone_number"], name: "index_users_on_phone_number"
   end
 
 end
