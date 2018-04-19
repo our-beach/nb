@@ -3,7 +3,6 @@ class DataEncryptionKey < ApplicationRecord
   attribute :primary, :boolean, default: false
 
   validates :key, presence: true, on: :create
-  validates :primary, inclusion: [true, false]
 
   def self.primary
     find_by primary: true
