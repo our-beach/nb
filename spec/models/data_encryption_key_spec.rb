@@ -4,6 +4,7 @@ RSpec.describe DataEncryptionKey, type: :model do
   describe 'attributes' do
     it { should have_attribute :key }
     it { should have_attribute :primary }
+    it { should have_many :encrypted_fields }
   end
 
   describe 'validations' do

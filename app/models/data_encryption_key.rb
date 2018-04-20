@@ -2,6 +2,8 @@ class DataEncryptionKey < ApplicationRecord
   attribute :key, :string
   attribute :primary, :boolean, default: false
 
+  has_many :encrypted_fields
+
   validates :key, presence: true, on: :create
 
   def self.primary

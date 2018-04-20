@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419044314) do
+ActiveRecord::Schema.define(version: 20180420020334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,21 @@ ActiveRecord::Schema.define(version: 20180419044314) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "encrypted_fields", force: :cascade do |t|
+    t.string "encrypted_blob"
+    t.string "encrypted_blob_iv"
+    t.string "encrypted_blob_salt"
+    t.bigint "data_encryption_key_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_encryption_key_id"], name: "index_encrypted_fields_on_data_encryption_key_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "encrypted_fields", "data_encryption_keys"
 end
