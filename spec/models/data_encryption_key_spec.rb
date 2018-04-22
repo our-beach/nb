@@ -2,13 +2,17 @@ require 'rails_helper'
 
 RSpec.describe DataEncryptionKey, type: :model do
   describe 'attributes' do
-    it { should have_attribute :key }
     it { should have_attribute :primary }
+
+    it { should have_db_column :encrypted_key }
+    it { should have_db_column :encrypted_key_iv }
+
     it { should have_many :encrypted_fields }
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:key).on :create }
+    it { should validate_presence_of(:encrypted_key).on :create }
+    it { should validate_presence_of(:primary).on :create }
   end
 
   describe '.primary' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420020334) do
+ActiveRecord::Schema.define(version: 20180422232422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,11 @@ ActiveRecord::Schema.define(version: 20180420020334) do
   end
 
   create_table "data_encryption_keys", force: :cascade do |t|
-    t.string "key", null: false
+    t.string "encrypted_key", null: false
     t.boolean "primary", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_key_iv"
   end
 
   create_table "encrypted_fields", force: :cascade do |t|

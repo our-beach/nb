@@ -1,7 +1,8 @@
 Figaro.require_keys *%w(
-  db_user
-  db_id
-  db_password
-  encryption_cost
-  authorization_request_token_ttl_minutes
+  AUTHORIZATION_REQUEST_TOKEN_TTL_MINUTES
+  DB_USER
+  DB_ID
+  DB_PASSWORD
+  ENCRYPTION_COST
+  KEK
 )
