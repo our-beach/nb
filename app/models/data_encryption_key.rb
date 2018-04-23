@@ -6,11 +6,16 @@ class DataEncryptionKey < ApplicationRecord
 
   has_many :encrypted_fields
 
-  validates :encrypted_key, :primary,
-    presence: true, on: :create
+  validates :encrypted_key, presence: true, on: :create
 
   def self.primary
     find_by primary: true
+  end
+
+  def self.generate! primary: false
+    dek = create!(key: AESKeyService.call)
+    return dek unless primary
+    dek.promote!
   end
 
   def is_primary?
@@ -23,7 +28,8 @@ class DataEncryptionKey < ApplicationRecord
     transaction do
       prior = DataEncryptionKey.primary
       prior.update_attributes! primary: false if prior
-      update_attributes! primary: true and self
+      update_attributes! primary: true
+      self
     end
   end
 

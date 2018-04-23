@@ -12,7 +12,24 @@ RSpec.describe DataEncryptionKey, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:encrypted_key).on :create }
-    it { should validate_presence_of(:primary).on :create }
+  end
+
+  describe '.generate!' do
+    before { expect(AESKeyService).to receive(:call).and_call_original }
+
+    context 'when primary is specified' do
+      subject { described_class.generate! primary: true }
+      after { described_class.last.destroy! }
+
+      it { is_expected.to eq described_class.primary }
+    end
+
+    context 'when primary is not specified' do
+      subject { described_class.generate! }
+      after { described_class.last.destroy! }
+
+      it { is_expected.not_to eq described_class.primary }
+    end
   end
 
   describe '.primary' do
