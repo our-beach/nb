@@ -8,6 +8,11 @@ class EncryptedField < ApplicationRecord
   validates :encrypted_blob, :encrypted_blob_iv, :encrypted_blob_salt, :data_encryption_key,
     presence: true
 
+  def reencrypt! new_dek
+    update_attributes! data_encryption_key: new_dek, blob: blob
+    self.reload
+  end
+
   private
 
   def encryption_key
