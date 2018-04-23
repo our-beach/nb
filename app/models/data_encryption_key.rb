@@ -8,6 +8,10 @@ class DataEncryptionKey < ApplicationRecord
 
   validates :encrypted_key, presence: true, on: :create
 
+  scope :unused, ->() do
+    where(primary: false).select { |dek| dek.encrypted_fields.empty? }
+  end
+
   def self.primary
     find_by primary: true
   end

@@ -48,6 +48,26 @@ RSpec.describe DataEncryptionKey, type: :model do
     it { is_expected.to have_attributes key: 'abc' }
   end
 
+  describe '.unused' do
+    subject { described_class.unused }
+
+    before :all do
+      @non_primary_no_fields = described_class.generate!
+      @non_primary_fields = described_class.generate! primary: true
+      EncryptedField.create! blob: 'dogs!'
+      @primary = described_class.generate! primary: true
+    end
+
+    after :all do
+      @non_primary_no_fields.destroy!
+      @non_primary_fields.encrypted_fields.each(&:destroy!)
+      @non_primary_fields.destroy!
+      @primary.destroy!
+    end
+
+    it { is_expected.not_to include @primary }
+  end
+
   describe '#is_primary?' do
     subject { instance.is_primary? }
 
