@@ -6,7 +6,7 @@ class User < ApplicationRecord
     autosave: true
   validates_presence_of :phone_number, on: :create
 
-  def phone_number=(val)
+  def phone_number= val
     encrypted_phone_number.blob = val
   end
 
