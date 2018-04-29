@@ -17,6 +17,8 @@ RSpec.describe "POST api/v1/users/", type: :request do
     { "CONTENT_TYPE" => "application/vnd.api+json" }
   end
 
+  before { DataEncryptionKey.generate!.promote! }
+
   it "creates a new user" do
     post '/api/v1/users', params: request_params.to_json, headers: headers
 
