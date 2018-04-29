@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope :api do
     namespace :v1 do
       resource :users do
-        post ':id/authorization_requests' => 'users/authorization_requests#create'
+        post ':id/authorization-requests' => 'users/authorization_requests#create'
         get ':id/authorization-token' => 'users/authorization_token#show'
       end
     end
