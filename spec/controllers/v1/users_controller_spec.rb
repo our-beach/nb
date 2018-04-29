@@ -16,6 +16,7 @@ RSpec.describe V1::UsersController, type: :controller do
     let(:encrypted_phone_number) { 'afhdslacdjsaklfhdkl;a' }
 
     before do
+      DataEncryptionKey.generate!.promote!
       expect(UserService).to receive(:create).
         with(phone_number).
         and_return user
