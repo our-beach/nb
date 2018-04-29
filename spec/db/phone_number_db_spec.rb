@@ -4,6 +4,8 @@ RSpec.describe PhoneNumberDB, type: :db do
   describe '.for_user' do
     subject { described_class.for_user @user.id }
 
+    before { DataEncryptionKey.generate!.promote! }
+
     context 'when a phone number exists for the user' do
       let(:phone_number) { '555-555-5555' }
 
