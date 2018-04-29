@@ -3,11 +3,21 @@ require 'rails_helper'
 RSpec.describe V1::Users::AuthorizationTokenController, type: :controller do
   describe 'GET /' do
     subject { response }
-    before { get :show, params: { id: '1', token: '123456' } }
-
-    let(:auth_token) { "you're good to go" }
+    before do
+      DataEncryptionKey.generate!.promote!
+      @user = User.create! phone_number: '555-555-5555'
+      get :show, params: { id: @user.id, token: '123456' }
+    end
 
     context 'when the exchange request is valid' do
+      let(:auth_token) { "you're good to go" }
+
+      before do
+        allow(AuthorizationTokenExchangeService).to receive(:call).
+          with(instance_of ExchangeRequest).
+          and_return auth_token
+      end
+
       it { is_expected.to have_http_status 204 }
       it do
         is_expected.to have_attributes headers: include(
