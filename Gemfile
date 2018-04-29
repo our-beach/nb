@@ -16,6 +16,7 @@ gem 'phony'
 gem 'redis'
 gem 'jsonapi-rb'
 gem 'jsonapi-rails'
+gem 'jwt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
