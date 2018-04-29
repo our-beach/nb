@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     expect { @user = User.create! phone_number: '555-555-5555' }
       .to change { EncryptedField.count }.by 1
     expect { @user.destroy! }
-      .to change { EncryptedField.count }.by -1
+      .to change { EncryptedField.count }.by(-1)
   end
 
   describe '#phone_number=' do
