@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::API
   def validate_auth_code
-    AuthCodeService.valid? auth_code
+    AuthorizationTokenValidator.call auth_code
   end
 
   def auth_code

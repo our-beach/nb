@@ -13,6 +13,30 @@ RSpec.describe AuthorizationToken, type: :model do
     it { is_expected.to validate_presence_of :user }
   end
 
+  describe '.from_jwt' do
+    subject { described_class.from_jwt jwt }
+
+    context 'when the jwt matches a token' do
+      xit 'should return the corresponding token'
+    end
+
+    context 'when the jwt does not match a token' do
+      xit 'should return nil'
+    end
+  end
+
+  describe '#expired?' do
+    subject { instance.expired? }
+
+    context 'when the current time is beyond the expiration time' do
+      xit 'should be falsey'
+    end
+
+    context 'when the current time is not beyond the expiration time' do
+      xit 'should be truthy'
+    end
+  end
+
   describe '#to_jwt' do
     subject do
       described_class.new(
