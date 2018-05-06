@@ -17,6 +17,10 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:phone_number).on :create }
   end
 
+  describe 'relations' do
+    it { is_expected.to have_one :authorization_token }
+  end
+
   it 'should create and destroy EncryptedFields in tandem' do
     expect { @user = User.create! phone_number: '555-555-5555' }
       .to change { EncryptedField.count }.by 1
