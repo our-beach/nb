@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  before_action :validate_auth_code
+
   def validate_auth_code
     AuthorizationTokenValidator.call auth_code
   end
