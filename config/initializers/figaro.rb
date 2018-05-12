@@ -5,4 +5,5 @@ Figaro.require_keys *%w(
   DB_PASSWORD
   ENCRYPTION_COST
   KEK
+  JWT_SECRET
 )
