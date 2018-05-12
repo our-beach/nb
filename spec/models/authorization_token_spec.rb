@@ -13,36 +13,40 @@ RSpec.describe AuthorizationToken, type: :model do
     it { is_expected.to validate_presence_of :user }
   end
 
-  describe '.from_jwt' do
-    subject { described_class.from_jwt jwt }
-    let(:auth_token) do
-      described_class.new(
-        uuid: uuid,
-        expiration_time: expiration_time,
-        user: user
-      )
-    end
-    let(:jwt) { { exp: expiration_time, sub: user.id, jti: uuid } }
+  describe '.find_for_jwt' do
+    subject { described_class.find_for_jwt jwt }
+
     let(:uuid) { 'uuid' }
     let(:expiration_time) { Time.zone.now }
     let(:user) { User.new(phone_number: '555-555-5555') }
 
     before do
       DataEncryptionKey.generate!.promote!
+      @token = described_class.create!(
+        uuid: uuid,
+        expiration_time: expiration_time,
+        user: user
+      )
     end
 
     context 'when the jwt matches a token' do
-      it 'should return the corresponding token' do
-        auth_token.save
-
-        expect(subject).to eq(auth_token)
-      end
+      let(:jwt) { { exp: expiration_time, sub: user.id, jti: uuid } }
+      it { is_expected.to eq @token }
     end
 
-    context 'when the jwt does not match a token' do
-      it 'should return nil' do
-        expect(subject).to eq(nil)
-      end
+    context 'when the jwt has a different uuid' do
+      let(:jwt) { { exp: expiration_time, sub: user.id, jti: SecureRandom.uuid } }
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the jwt has a different expiration time' do
+      let(:jwt) { { exp: expiration_time + 1.second, sub: user.id, jti: uuid } }
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the jwt has a different user' do
+      let(:jwt) { { exp: expiration_time, sub: SecureRandom.uuid, jti: uuid } }
+      it { is_expected.to be_nil }
     end
   end
 

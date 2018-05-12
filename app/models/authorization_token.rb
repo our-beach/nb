@@ -10,8 +10,10 @@ class AuthorizationToken < ApplicationRecord
     { exp: expiration_time, sub: user.id, jti: uuid }
   end
 
-  def self.from_jwt jwt
-    find_by uuid: jwt[:jti]
+  def self.find_for_jwt jwt
+    find_by uuid: jwt[:jti],
+      user_id: jwt[:sub],
+      expiration_time: jwt[:exp]
   end
 
   def expired?
