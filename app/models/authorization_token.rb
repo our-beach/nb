@@ -11,11 +11,14 @@ class AuthorizationToken < ApplicationRecord
   end
 
   def self.from_jwt jwt
-    find_by(uuid: jwt[:jti])
+    find_by uuid: jwt[:jti]
   end
 
   def expired?
     expiration_time <= Time.zone.now
   end
 
+  def active?
+    not expired?
+  end
 end
