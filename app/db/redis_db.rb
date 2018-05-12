@@ -17,5 +17,9 @@ class RedisDB
       result = redis.set(key, value, **options)
       result == 'OK' || result
     end
+
+    def destroy! key
+      redis.del key
+    end
   end
 end

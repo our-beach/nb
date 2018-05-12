@@ -36,4 +36,8 @@ RSpec.describe AuthorizationRequestTokenDB, type: :db do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '.destroy' do
+    xit 'should destroy the token for the given user id'
+  end
 end

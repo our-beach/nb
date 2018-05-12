@@ -1,8 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe V1::Users::AuthorizationTokenExchangeService, type: :controller do
+RSpec.describe V1::Users::AuthorizationTokenExchangeService do
   describe '.call' do
     subject { described_class.call exchange_request }
+    let(:exchange_request) do
+      instance_double ExchangeRequest, user: user
+    end
+
+    let(:user) { instance_double User, id: 'abc' }
+    let(:token) { instance_double AuthorizationToken }
 
     context 'when the exchange request is invalid' do
       before do
@@ -11,10 +17,11 @@ RSpec.describe V1::Users::AuthorizationTokenExchangeService, type: :controller d
           and_return false
 
         expect(AuthorizationTokenGenerator).not_to receive(:call)
+        expect(AuthorizationRequestTokenDB).not_to receive(:destroy)
       end
 
       it 'should raise a error' do
-        expect { subject }.to raise described_class::InvalidRequestError
+        expect { subject }.to raise_error described_class::InvalidRequestError
       end
     end
 
@@ -26,10 +33,12 @@ RSpec.describe V1::Users::AuthorizationTokenExchangeService, type: :controller d
 
         expect(AuthorizationTokenGenerator).to receive(:call).
           with(user).
-          and_call_original
+          and_return token
+
+        expect(AuthorizationRequestTokenDB).to receive(:destroy)
       end
 
-      it { is_expected.to be_a String }
+      it { is_expected.to eq token }
     end
   end
 end

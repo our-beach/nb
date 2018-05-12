@@ -12,6 +12,10 @@ class AuthorizationRequestTokenDB
       RedisDB.get prefix(user_id)
     end
 
+    def destroy user_id
+      RedisDB.destroy! user_id
+    end
+
     private
 
     def prefix key
