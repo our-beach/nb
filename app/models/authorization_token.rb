@@ -9,4 +9,9 @@ class AuthorizationToken < ApplicationRecord
   def to_jwt
     { exp: expiration_time, sub: user.id, jti: uuid }
   end
+
+  def self.from_jwt jwt
+    find_by(uuid: jwt[:jti])
+  end
+
 end

@@ -15,13 +15,34 @@ RSpec.describe AuthorizationToken, type: :model do
 
   describe '.from_jwt' do
     subject { described_class.from_jwt jwt }
+    let(:auth_token) do
+      described_class.new(
+        uuid: uuid,
+        expiration_time: expiration_time,
+        user: user
+      )
+    end
+    let(:jwt) { { exp: expiration_time, sub: user.id, jti: uuid } }
+    let(:uuid) { 'uuid' }
+    let(:expiration_time) { Time.zone.now }
+    let(:user) { User.new(phone_number: '555-555-5555') }
+
+    before do
+      DataEncryptionKey.generate!.promote!
+    end
 
     context 'when the jwt matches a token' do
-      xit 'should return the corresponding token'
+      it 'should return the corresponding token' do
+        auth_token.save
+
+        expect(subject).to eq(auth_token)
+      end
     end
 
     context 'when the jwt does not match a token' do
-      xit 'should return nil'
+      it 'should return nil' do
+        expect(subject).to eq(nil)
+      end
     end
   end
 

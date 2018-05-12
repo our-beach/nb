@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_one :authorization_token
+  has_one :authorization_token,
+    dependent: :destroy
   belongs_to :encrypted_phone_number,
     class_name: "EncryptedField",
     dependent: :destroy,
