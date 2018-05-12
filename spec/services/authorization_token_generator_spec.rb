@@ -25,13 +25,13 @@ RSpec.describe AuthorizationTokenGenerator do
 
     context 'when the user already has an authorization token' do
       before do
-        @old_token = AuthorizationToken.create user: @user,
+        @old_token = AuthorizationToken.create! user: @user,
           uuid: 'uuid',
           expiration_time: Time.zone.now
       end
 
       it 'should destroy the prior token' do
-        expect(@old_token).to receive(:destroy!)
+        expect(@old_token).to receive(:destroy!).and_call_original
         subject
       end
     end
