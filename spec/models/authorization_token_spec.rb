@@ -48,13 +48,36 @@ RSpec.describe AuthorizationToken, type: :model do
 
   describe '#expired?' do
     subject { instance.expired? }
+    let(:instance) do
+      described_class.new(
+        uuid: uuid,
+        expiration_time: expiration_time,
+        user: user
+      )
+    end
+    let(:uuid) { 'uuid' }
+    let(:user) { User.new(phone_number: '555-555-5555') }
 
-    context 'when the current time is beyond the expiration time' do
-      xit 'should be falsey'
+    before do
+      DataEncryptionKey.generate!.promote!
     end
 
-    context 'when the current time is not beyond the expiration time' do
-      xit 'should be truthy'
+    context 'when the current time is beyond the expiration time' do
+      let(:expiration_time) { Time.zone.now - 1.second }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the current time is (virtually) equal to the expiration time' do
+      let(:expiration_time) { Time.zone.now }
+
+      it { is_expected.to eq(true) }
+    end
+
+   context 'when the current time is not beyond the expiration time' do
+      let(:expiration_time) { Time.zone.now + 1.second}
+
+      it { is_expected.to eq(false) }
     end
   end
 
