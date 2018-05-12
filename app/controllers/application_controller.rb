@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   end
 
   def auth_code
-    request.headers["Authorization"]
+    @_auth_code ||= JWTService.decode request.headers["Authorization"]
   end
 
   def route_for resource
