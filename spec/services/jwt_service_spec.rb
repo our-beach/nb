@@ -9,10 +9,17 @@ RSpec.describe JWTService do
   end
 
   describe '.decode' do
-    xit 'it decodes the token using the secret and algorithm'
+    it 'preserves the original data' do
+      data = {}
+      expect(described_class.new.decode described.class.encode(data)).
+        to be == data
+    end
   end
 
   describe '.encode' do
-    xit 'it encodes the token using the secret and algorithm'
+    it 'obscures the original data' do
+      data = {}
+      expect(described_class.new.encode data).not_to be == data.to_s
+    end
   end
 end
