@@ -23,11 +23,23 @@ RSpec.describe JWTService do
       expect { described_class.decode described_class.encode(data) }.
         to raise_error JWT::ExpiredSignature
     end
+
+    it 'applies leeway when provided' do
+      data = { sub: rand(10000), exp: (Time.now + 1.second - 1.week).to_i }
+      expect(described_class.decode(described_class.encode(data), leeway: 1.week)).
+        to be == data
+    end
+
+    it 'does not extend past the leeway provided' do
+      data = { sub: rand(10000), exp: (Time.now - 1.week).to_i }
+      expect { described_class.decode(described_class.encode(data), leeway: 1.week) }.
+        to raise_error JWT::ExpiredSignature
+    end
   end
 
   describe '.encode' do
     it 'obscures the original data' do
-      data = {}
+      data = { sub: rand(10000), exp: Time.now.to_i + 1 }
       expect(described_class.encode data).not_to be == data.to_s
     end
   end

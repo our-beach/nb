@@ -6,8 +6,9 @@ class JWTService
     JWT.encode payload, SECRET, ALGORITHM
   end
 
-  def self.decode token
-    data = JWT.decode token, SECRET, true, { algorithm: ALGORITHM }
-    data[0].symbolize_keys if data[1]['alg'] == 'HS256'
+  def self.decode(token, leeway: 0.seconds)
+    data, meta = JWT.decode token, SECRET, true,
+      { algorithm: ALGORITHM, exp_leeway: leeway.to_i }
+    data.symbolize_keys if meta['alg'] == 'HS256'
   end
 end
