@@ -1,8 +1,9 @@
 AllCops:
+  TargetRubyVersion: 2.4.2
   Exclude:
     - spec/spec_helper.rb
     - spec/helpers/**/*
     - Gemfile
-    - *.gemspec
+    - '*.gemspec'
     - bin/**/*
     - Guardfile
