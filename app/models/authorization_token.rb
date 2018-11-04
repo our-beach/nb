@@ -15,12 +15,4 @@ class AuthorizationToken < ApplicationRecord
       user_id: jwt[:sub],
       expiration_time: jwt[:exp]
   end
-
-  def expired?
-    expiration_time <= Time.zone.now
-  end
-
-  def active?
-    not expired?
-  end
 end

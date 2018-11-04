@@ -17,7 +17,7 @@ RSpec.describe AuthorizationToken, type: :model do
     subject { described_class.find_for_jwt jwt }
 
     let(:uuid) { 'uuid' }
-    let(:expiration_time) { Time.zone.now }
+    let(:expiration_time) { Time.zone.now.to_i }
     let(:user) { User.new(phone_number: '555-555-5555') }
 
     before do
@@ -40,48 +40,13 @@ RSpec.describe AuthorizationToken, type: :model do
     end
 
     context 'when the jwt has a different expiration time' do
-      let(:jwt) { { exp: expiration_time + 1.second, sub: user.id, jti: uuid } }
+      let(:jwt) { { exp: expiration_time + 1, sub: user.id, jti: uuid } }
       it { is_expected.to be_nil }
     end
 
     context 'when the jwt has a different user' do
       let(:jwt) { { exp: expiration_time, sub: SecureRandom.uuid, jti: uuid } }
       it { is_expected.to be_nil }
-    end
-  end
-
-  describe '#expired?' do
-    subject { instance.expired? }
-    let(:instance) do
-      described_class.new(
-        uuid: uuid,
-        expiration_time: expiration_time,
-        user: user
-      )
-    end
-    let(:uuid) { 'uuid' }
-    let(:user) { User.new(phone_number: '555-555-5555') }
-
-    before do
-      DataEncryptionKey.generate!.promote!
-    end
-
-    context 'when the current time is beyond the expiration time' do
-      let(:expiration_time) { Time.zone.now - 1.second }
-
-      it { is_expected.to eq(true) }
-    end
-
-    context 'when the current time is (virtually) equal to the expiration time' do
-      let(:expiration_time) { Time.zone.now }
-
-      it { is_expected.to eq(true) }
-    end
-
-   context 'when the current time is not beyond the expiration time' do
-      let(:expiration_time) { Time.zone.now + 1.second}
-
-      it { is_expected.to eq(false) }
     end
   end
 
@@ -94,7 +59,7 @@ RSpec.describe AuthorizationToken, type: :model do
       ).to_jwt
     end
 
-    let(:now) { Time.zone.now }
+    let(:now) { Time.zone.now.to_i }
 
     it { is_expected.to include exp: now }
     it { is_expected.to include sub: 10 }
