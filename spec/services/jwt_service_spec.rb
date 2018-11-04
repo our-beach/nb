@@ -25,7 +25,7 @@ RSpec.describe JWTService do
     end
 
     it 'applies leeway when provided' do
-      data = { sub: rand(10000), exp: (Time.now + 1.second - 1.week).to_i }
+      data = { sub: rand(10000), exp: (Time.now - 6.days).to_i }
       expect(described_class.decode(described_class.encode(data), leeway: 1.week)).
         to be == data
     end
