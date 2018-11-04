@@ -5,8 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'ffi', '>= 1.9.24'
+gem 'loofah', '>= 2.2.3'
+gem 'sprockets', '>= 3.7.2'
+gem 'rails-html-sanitizer', '>= 1.0.4'
 
-gem 'attr_encrypted'
+gem 'attr_encrypted', '~> 3.0.0'
 gem 'rails', '~> 5.1.4'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
