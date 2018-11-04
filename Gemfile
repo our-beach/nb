@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 
-gem 'attr_encrypted'
+gem 'attr_encrypted', '~> 3.0.0'
 gem 'rails', '~> 5.1.4'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
