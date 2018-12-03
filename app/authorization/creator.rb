@@ -14,7 +14,7 @@ module Authorization
     def call user
       user.authorization_token.destroy! if user.authorization_token
       db.create! user: user,
-        expiration_time: Time.zone.now + EXPIRATION_WINDOW,
+        expiration_time: (Time.zone.now + EXPIRATION_WINDOW).to_i,
         uuid: UUIDGenerator.call
     end
   end

@@ -18,8 +18,9 @@ RSpec.describe Authorization::Creator do
     it { is_expected.to have_attributes user: @user }
     it { is_expected.to have_attributes uuid: uuid }
     it do
+      window = described_class::EXPIRATION_WINDOW.to_i
       is_expected.to have_attributes(
-        expiration_time: be_within(10.seconds).of(now + described_class::EXPIRATION_WINDOW)
+        expiration_time: be_within(window).of(now.to_i)
       )
     end
 
@@ -27,7 +28,7 @@ RSpec.describe Authorization::Creator do
       before do
         @old_token = AuthorizationToken.create! user: @user,
           uuid: 'uuid',
-          expiration_time: Time.zone.now
+          expiration_time: Time.zone.now.to_i
       end
 
       it 'should destroy the prior token' do
