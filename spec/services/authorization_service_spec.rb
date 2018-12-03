@@ -88,4 +88,9 @@ RSpec.describe AuthorizationService do
       end
     end
   end
+
+  describe '#authorize!' do
+    xit 'should create a token for the provided user' do
+    end
+  end
 end

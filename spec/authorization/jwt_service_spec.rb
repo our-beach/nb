@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JWTService do
+RSpec.describe Authorization::JWTService do
   describe 'ALGORITHM' do
     subject { described_class::ALGORITHM }
     it('should be HMAC + SHA256') { is_expected.to eq 'HS256' }

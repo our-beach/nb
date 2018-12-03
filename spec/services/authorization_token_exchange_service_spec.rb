@@ -16,7 +16,7 @@ RSpec.describe V1::Users::AuthorizationTokenExchangeService do
           with(exchange_request).
           and_return false
 
-        expect(AuthorizationTokenGenerator).not_to receive(:call)
+        expect(AuthorizationService).not_to receive(:authorize!)
         expect(AuthorizationRequestTokenDB).not_to receive(:destroy)
       end
 
@@ -31,7 +31,7 @@ RSpec.describe V1::Users::AuthorizationTokenExchangeService do
           with(exchange_request).
           and_return true
 
-        expect(AuthorizationTokenGenerator).to receive(:call).
+        expect(AuthorizationService).to receive(:authorize!).
           with(user).
           and_return token
 
