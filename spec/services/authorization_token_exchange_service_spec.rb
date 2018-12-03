@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::Users::AuthorizationTokenExchangeService do
+RSpec.describe AuthorizationTokenExchangeService do
   describe '.call' do
     subject { described_class.call exchange_request }
     let(:exchange_request) do
