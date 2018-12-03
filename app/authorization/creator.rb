@@ -1,5 +1,5 @@
 module Authorization
-  class Generator
+  class Creator
     EXPIRATION_WINDOW = Figaro.env.authorization_token_expiration_window_days.to_i.days
 
     def self.call user

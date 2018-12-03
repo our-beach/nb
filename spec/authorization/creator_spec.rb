@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Authorization::Generator do
+RSpec.describe Authorization::Creator do
   describe '.call' do
     subject { described_class.call @user }
 
