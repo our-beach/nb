@@ -65,4 +65,28 @@ RSpec.describe AuthorizationToken, type: :model do
     it { is_expected.to include sub: 10 }
     it { is_expected.to include jti: 'uuid' }
   end
+
+  describe '#active?' do
+    subject { token.active? time }
+
+    let(:token) do
+      described_class.new created_at: Time.zone.at(9000),
+        expiration_time: 10000
+    end
+
+    context 'when the provided time is before the expiration time and after its creation' do
+      let(:time) { 9500 }
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when the provided time is afer the expiration time' do
+      let(:time) { 20000 }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when the provided time is before its creation' do
+      let(:time) { 900 }
+      it { is_expected.to be_falsey }
+    end
+  end
 end
