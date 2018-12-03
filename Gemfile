@@ -11,7 +11,7 @@ gem 'loofah', '>= 2.2.3'
 gem 'sprockets', '>= 3.7.2'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
-gem 'attr_encrypted', '~> 3.0.0'
+gem 'attr_encrypted', '~> 3.1.0'
 gem 'rails', '~> 5.1.4'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
