@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   config.autoload_paths += [
-    'app/authorization',
+    'app/authorization/',
   ]
 
   # Show full error reports.

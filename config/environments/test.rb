@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   config.autoload_paths += [
-    'app/authorization',
+    'app/authorization/',
   ]
 
   # Configure public file server for tests with Cache-Control for performance.
